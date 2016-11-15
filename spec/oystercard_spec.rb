@@ -2,6 +2,8 @@ require './lib/oystercard.rb'
 
 describe Oystercard do
 
+  let(:station) {double(:station)}
+
   context "Initialize variables" do ##############################
 
    it "Initializes card with zero balance" do
@@ -29,12 +31,12 @@ describe Oystercard do
 
   context "Touch in & Touch Out" do ##############################
     it "tests that initially in_journey? returns nil" do
-      expect(subject.in_journey?).to eq nil
+      expect(subject.in_journey?).to eq false
     end
 
     it "tests that touch_in set a journey_status of true" do
       subject.top_up(50)
-      subject.touch_in
+      subject.touch_in(station)
       expect(subject.in_journey?).to eq true
     end
 
@@ -43,7 +45,13 @@ describe Oystercard do
     end
 
     it "tests that touch_in will raise an error if the balance is under minimum amount" do
-      expect{subject.touch_in}.to raise_error "Low Funds Error: Please top_up balance"
+      expect{subject.touch_in(station)}.to raise_error "Low Funds Error: Please top_up balance"
+    end
+
+    it "tests that touch_in will store the station that the user touches in from" do
+      subject.top_up(50)
+      subject.touch_in(station)
+      expect(subject.entry_station).to eq station
     end
 
     it "tests that touch_out sets a journey_status of false" do
@@ -51,9 +59,16 @@ describe Oystercard do
       expect(subject.in_journey?).to eq false
     end
 
+    it "tests that touch_out sets a station equal to nil" do
+      subject.top_up(50)
+      subject.touch_in(station)
+      subject.touch_out
+      expect(subject.entry_station).to eq nil
+    end
+
     it "tests that minimum limit is deducted from balance after touching out" do
       subject.top_up(50)
-      subject.touch_in
+      subject.touch_in(station)
       expect{subject.touch_out}.to change{subject.balance}.by(-1)
     end
 

@@ -2,6 +2,7 @@ require './lib/oystercard.rb'
 
 describe "Feature tests" do
 
+
 # In order to protect my money from theft or loss
 # As a customer
 # I want a maximum limit (of £90) on my card
@@ -32,9 +33,10 @@ describe "Feature tests" do
 
     it "Testing whole touch in and out user story" do
       card = Oystercard.new
-      expect(card.in_journey?).to eq nil
+      expect(card.in_journey?).to eq false
       card.top_up(50)
-      card.touch_in
+      card.touch_in('station')
+      expect(card.entry_station).to eq 'station'
       expect(card.in_journey?).to eq true
       card.touch_out
       expect(card.in_journey?).to eq false
@@ -52,7 +54,7 @@ describe "Feature tests" do
   context "As a customer I need to have the minimum amount (£1) for a single journey." do
     it "Tests that an error is raised when a customer tries to touch in without the default minimum value" do
       card = Oystercard.new
-      expect{card.touch_in}.to raise_error "Low Funds Error: Please top_up balance"
+      expect{card.touch_in('station')}.to raise_error "Low Funds Error: Please top_up balance"
     end
   end
 
