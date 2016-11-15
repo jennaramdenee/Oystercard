@@ -50,7 +50,16 @@ describe "Feature tests" do
 
 
 
+  # In order to pay for my journey
+  # As a customer
+  # I need to have the minimum amount (£1) for a single journey.
 
+  context "As a customer I need to have the minimum amount (£1) for a single journey." do
+    it "Tests that an error is raised when a customer tries to touch in without the default minimum value" do
+      card = Oystercard.new
+      expect{card.touch_in}.to raise_error "Low Funds Error: Please top_up balance"
+    end
+  end
 
 
 
