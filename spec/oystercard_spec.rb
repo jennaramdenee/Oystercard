@@ -15,7 +15,7 @@ describe Oystercard do
 
 
 
-
+  context "Tests top_up method" do
    it "tests that top_up method returns balance + value" do
      expect(subject.top_up(50)).to eq 50
    end
@@ -24,7 +24,14 @@ describe Oystercard do
    it raises an error" do
      expect {subject.top_up(100)}.to raise_error "Top up rejected: exceeds maximum balance of #{subject.limit}"
    end
+ end
 
+
+  context "Tests deduct method" do
+    it "tests that duduct method returns balance - value" do
+      expect(subject.deduct(100)).to eq -100
+    end
+  end
 
 
 
