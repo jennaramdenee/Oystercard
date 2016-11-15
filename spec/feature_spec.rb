@@ -58,6 +58,27 @@ describe "Feature tests" do
     end
   end
 
+  context "As a customer I want to see to all my previous trips" do
+    it "Tests that touching in and touching out creates one journey" do
+      card = Oystercard.new
+      card.top_up(80)
+      card.touch_in("Mansion House")
+      card.touch_out("London Bridge")
+      expect(card.journey).to eq ({:entry_station => "Mansion House", :exit_station => "London Bridge"})
+    end
+
+    it "Tests that a customer can view all journeys" do
+      card = Oystercard.new
+      card.top_up(80)
+      card.touch_in("Mansion House")
+      card.touch_out("London Bridge")
+      card.touch_in("Aldgate East")
+      card.touch_out("Putney")
+      expect(card.all_journeys).to_not be_empty
+    end
+
+
+  end
 
 
 

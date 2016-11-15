@@ -31,7 +31,7 @@ describe Oystercard do
 
 
   context "Touch in & Touch Out" do ##############################
-    it "tests that initially in_journey? returns nil" do
+    it "tests that initially in_journey? returns false" do
       expect(subject.in_journey?).to eq false
     end
 
@@ -79,11 +79,22 @@ describe Oystercard do
 
   context "Recording a journey" do ##############################
 
-    it 'populates array with entry station and exit station when touching out' do
+    it 'creates with entry station and exit station when touching out' do
       subject.top_up(50)
       subject.touch_in(station)
       subject.touch_out(exit_station)
-      expect(subject.journey).to eq [station, exit_station]
+      expect(subject.journey).to eq ({:entry_station => station, :exit_station => exit_station })
+    end
+
+    it 'creates a card with no journey history' do
+      expect(subject.all_journeys).to eq []
+    end
+
+    it 'adds a journey to journey history once complete' do
+      subject.top_up(50)
+      subject.touch_in(station)
+      subject.touch_out(exit_station)
+      expect(subject.all_journeys).not_to be_empty
     end
 
 
