@@ -1,15 +1,17 @@
 class Oystercard
-  attr_reader :balance, :limit
+  attr_reader :balance, :max_limit, :min_limit
 
-  DEFAULT_LIMIT = 90
+  DEFAULT_MAX_LIMIT = 90
+  DEFAULT_MIN_LIMIT = 1
 
   def initialize
     @balance = 0
-    @limit = DEFAULT_LIMIT
+    @max_limit = DEFAULT_MAX_LIMIT
+    @min_limit = DEFAULT_MIN_LIMIT
   end
 
   def top_up(value)
-    raise "Top up rejected: exceeds maximum balance of #{@limit}" if @balance + value > @limit
+    raise "Top up rejected: exceeds maximum balance of #{@max_limit}" if @balance + value > @max_limit
     @balance += value
   end
 
@@ -18,7 +20,7 @@ class Oystercard
   end
 
   def touch_in
-    raise "Low Funds Error: Please top_up balance" if @balance < 1
+    raise "Low Funds Error: Please top_up balance" if @balance < @min_limit
     @journey_status = true
 
   end

@@ -9,7 +9,7 @@ describe Oystercard do
    end
 
    it "Initializes limit with default limit" do
-     expect(Oystercard::DEFAULT_LIMIT).to eq subject.limit
+     expect(Oystercard::DEFAULT_MAX_LIMIT).to eq subject.max_limit
    end
  end
 
@@ -22,7 +22,7 @@ describe Oystercard do
 
    it "tests that when top_up method is passed more than 90
    it raises an error" do
-     expect {subject.top_up(100)}.to raise_error "Top up rejected: exceeds maximum balance of #{subject.limit}"
+     expect {subject.top_up(100)}.to raise_error "Top up rejected: exceeds maximum balance of #{subject.max_limit}"
    end
  end
 
@@ -44,9 +44,14 @@ describe Oystercard do
       expect(subject.in_journey?).to eq true
     end
 
+    it "tests that the constant DEFAULT_MIN_LIMIT is equal to instance variable @min_limit" do
+      expect(Oystercard::DEFAULT_MIN_LIMIT).to eq subject.min_limit
+    end
+
     it "tests that touch_in will raise an error if the balance is under minimum amount" do
       expect{subject.touch_in}.to raise_error "Low Funds Error: Please top_up balance"
     end
+
 
     it "tests that touch_out sets a journey_status of false" do
       subject.touch_out
