@@ -2,9 +2,19 @@ require './lib/oystercard.rb'
 
 describe Oystercard do
 
+  context "Initialize variables" do
+
    it "Initializes card with zero balance" do
      expect(subject.balance).to eq 0
    end
+
+   it "Initializes limit with default limit" do
+     expect(Oystercard::DEFAULT_LIMIT).to eq subject.limit
+   end
+ end
+
+
+
 
    it "tests that top_up method returns balance + value" do
      expect(subject.top_up(50)).to eq 50
@@ -14,6 +24,8 @@ describe Oystercard do
    it raises an error" do
      expect {subject.top_up(100)}.to raise_error "Top up rejected: exceeds maximum balance"
    end
+
+
 
 
 
