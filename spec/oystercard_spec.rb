@@ -6,6 +6,10 @@ describe Oystercard do
      expect(subject.balance).to eq 0
    end
 
+   it "tests that top_up method returns balance + value" do
+     expect(subject.top_up(50)).to eq 50
+   end
+
 
 
 
