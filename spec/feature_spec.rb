@@ -29,3 +29,7 @@ describe "Feature tests" do
      end
    end
 end
+
+# In order to get through the barriers.
+# As a customer
+# I need to touch in and out.
