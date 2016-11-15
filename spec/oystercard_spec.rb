@@ -10,6 +10,13 @@ describe Oystercard do
      expect(subject.top_up(50)).to eq 50
    end
 
+   it "tests that when top_up method is passed more than 90
+   it raises an error" do
+     expect {subject.top_up(100)}.to raise_error "Top up rejected: exceeds maximum balance"
+   end
+
+
+
 
 
 
