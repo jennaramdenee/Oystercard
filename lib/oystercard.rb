@@ -15,22 +15,24 @@ class Oystercard
     @balance += value
   end
 
-  def deduct(value)
-    @balance -= value
-  end
-
   def touch_in
     raise "Low Funds Error: Please top_up balance" if @balance < @min_limit
     @journey_status = true
-
   end
 
   def touch_out
     @journey_status = false
+    deduct(@min_limit)
   end
 
   def in_journey?
     @journey_status
+  end
+
+private
+
+  def deduct(value)
+    @balance -= value
   end
 
 

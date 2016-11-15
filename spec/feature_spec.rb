@@ -20,19 +20,13 @@ describe "Feature tests" do
   # In order to pay for my journey
   # As a customer
   # I need my fare deducted from my card
-   context "As a customer I need my fare deducted from my card" do
 
-     it "When we deduct money from the card that money is removed from value" do
-       card = Oystercard.new
-       card.top_up(80)
-       expect(card.deduct(50)).to eq 30
-     end
-   end
 
 
 # In order to get through the barriers.
 # As a customer
 # I need to touch in and out.
+# When my journey is complete, I need the correct amount deducted from my card
 
   context "As a customer, I need to touch in and out" do
 
@@ -44,6 +38,7 @@ describe "Feature tests" do
       expect(card.in_journey?).to eq true
       card.touch_out
       expect(card.in_journey?).to eq false
+      expect{card.touch_out}.to change{card.balance}.by(-1)
     end
 
   end
@@ -60,7 +55,6 @@ describe "Feature tests" do
       expect{card.touch_in}.to raise_error "Low Funds Error: Please top_up balance"
     end
   end
-
 
 
 

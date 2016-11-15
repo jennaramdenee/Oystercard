@@ -27,12 +27,6 @@ describe Oystercard do
  end
 
 
-  context "Tests deduct method" do ###############################
-    it "tests that duduct method returns balance - value" do
-      expect(subject.deduct(100)).to eq -100
-    end
-  end
-
   context "Touch in & Touch Out" do ##############################
     it "tests that initially in_journey? returns nil" do
       expect(subject.in_journey?).to eq nil
@@ -52,11 +46,19 @@ describe Oystercard do
       expect{subject.touch_in}.to raise_error "Low Funds Error: Please top_up balance"
     end
 
-
     it "tests that touch_out sets a journey_status of false" do
       subject.touch_out
       expect(subject.in_journey?).to eq false
     end
+
+    it "tests that minimum limit is deducted from balance after touching out" do
+      subject.top_up(50)
+      subject.touch_in
+      expect{subject.touch_out}.to change{subject.balance}.by(-1)
+    end
+
+
+
   end
 
 
