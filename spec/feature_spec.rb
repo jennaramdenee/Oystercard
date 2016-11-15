@@ -11,7 +11,7 @@ describe "Feature tests" do
         it "When we have a value on the card and top_up past the limit we get an error message" do
          card = Oystercard.new
          card.top_up(50)
-         expect{card.top_up(50)}.to raise_error "Top up rejected: exceeds maximum balance"
+         expect{card.top_up(50)}.to raise_error "Top up rejected: exceeds maximum balance of #{card.limit}"
        end
   end
 end
