@@ -3,6 +3,7 @@ require './lib/oystercard.rb'
 describe Oystercard do
 
   let(:station) {double(:station)}
+  let(:exit_station) {double(:station)}
 
   context "Initialize variables" do ##############################
 
@@ -55,28 +56,38 @@ describe Oystercard do
     end
 
     it "tests that touch_out sets a journey_status of false" do
-      subject.touch_out
+      subject.touch_out(exit_station)
       expect(subject.in_journey?).to eq false
     end
 
-    it "tests that touch_out sets a station equal to nil" do
+    it "tests that touch_out stores a station" do
       subject.top_up(50)
       subject.touch_in(station)
-      subject.touch_out
-      expect(subject.entry_station).to eq nil
+      subject.touch_out(exit_station)
+      expect(subject.exit_station).to eq exit_station
     end
 
     it "tests that minimum limit is deducted from balance after touching out" do
       subject.top_up(50)
       subject.touch_in(station)
-      expect{subject.touch_out}.to change{subject.balance}.by(-1)
+      expect{subject.touch_out(exit_station)}.to change{subject.balance}.by(-1)
     end
 
 
 
   end
 
+  context "Recording a journey" do ##############################
 
+    it 'populates array with entry station and exit station when touching out' do
+      subject.top_up(50)
+      subject.touch_in(station)
+      subject.touch_out(exit_station)
+      expect(subject.journey).to eq [station, exit_station]
+    end
+
+
+  end
 
 
 

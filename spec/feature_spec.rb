@@ -38,9 +38,9 @@ describe "Feature tests" do
       card.touch_in('station')
       expect(card.entry_station).to eq 'station'
       expect(card.in_journey?).to eq true
-      card.touch_out
+      card.touch_out('station')
       expect(card.in_journey?).to eq false
-      expect{card.touch_out}.to change{card.balance}.by(-1)
+      expect{card.touch_out('station')}.to change{card.balance}.by(-1)
     end
 
   end
