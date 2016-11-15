@@ -28,8 +28,23 @@ describe "Feature tests" do
        expect(card.deduct(50)).to eq 30
      end
    end
-end
+
 
 # In order to get through the barriers.
 # As a customer
 # I need to touch in and out.
+
+  context "As a customer, I need to touch in and out" do
+
+    it "Testing whole touch in and out user story" do
+      card = Oystercard.new
+      expect(card.in_journey?).to eq nil
+      card.touch_in
+      expect(card.in_journey?).to eq true
+      card.touch_out
+      expect(card.in_journey?).to eq false
+    end
+
+  end
+
+end

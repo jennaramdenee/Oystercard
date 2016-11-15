@@ -33,6 +33,22 @@ describe Oystercard do
     end
   end
 
+  context "Touch in & Touch Out" do
+    it "tests that initially in_journey? returns nil" do
+      expect(subject.in_journey?).to eq nil
+    end
+
+    it "tests that touch_in set a journey_status of true" do
+      subject.touch_in
+      expect(subject.in_journey?).to eq true
+    end
+
+    it "tests that touch_out sets a journey_status of false" do
+      subject.touch_out
+      expect(subject.in_journey?).to eq false
+    end
+  end
+
 
 
 
