@@ -39,6 +39,7 @@ describe "Feature tests" do
     it "Testing whole touch in and out user story" do
       card = Oystercard.new
       expect(card.in_journey?).to eq nil
+      card.top_up(50)
       card.touch_in
       expect(card.in_journey?).to eq true
       card.touch_out
@@ -46,5 +47,13 @@ describe "Feature tests" do
     end
 
   end
+
+
+
+
+
+
+
+
 
 end

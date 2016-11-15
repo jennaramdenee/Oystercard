@@ -18,7 +18,9 @@ class Oystercard
   end
 
   def touch_in
+    raise "Low Funds Error: Please top_up balance" if @balance < 1
     @journey_status = true
+
   end
 
   def touch_out
