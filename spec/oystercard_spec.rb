@@ -41,21 +41,21 @@ describe OysterCard do
     end
 
     it 'should return true if touched in' do
-      expect(card.in_journey?).to eq true
+      expect(card.journey.in_journey?).to eq true
     end
 
     it 'should return false if touched out' do
       card.touch_out(exit_station)
-      expect(card.in_journey?).to eq false
+      expect(card.journey.in_journey?).to eq false
     end
 
     it 'should return true if touched in' do
-      expect(card).to be_in_journey
+      expect(card.journey).to be_in_journey
     end
 
     it 'should return false if touched out' do
       card.touch_out(exit_station)
-      expect(card).not_to be_in_journey
+      expect(card.journey).not_to be_in_journey
     end
 
     it 'expects touch out to deduct minimum fare from balance' do
