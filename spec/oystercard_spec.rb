@@ -42,7 +42,7 @@ describe OysterCard do
     end
 
     it 'should return false if touched out' do
-      card.touch_out
+      card.touch_out('Liverpool Street')
       expect(card.in_journey?).to eq false
     end
 
@@ -51,21 +51,29 @@ describe OysterCard do
     end
 
     it 'should return false if touched out' do
-      card.touch_out
+      card.touch_out('Liverpool Street')
       expect(card).not_to be_in_journey
     end
 
     it 'expects touch out to deduct minimum fare from balance' do
-      expect{card.touch_out}.to change{card.balance}.by(-OysterCard::MINIMUM_FARE)
+      expect{card.touch_out('Liverpool Street')}.to change{card.balance}.by(-OysterCard::MINIMUM_FARE)
     end
 
     it 'expects the touch in method to remember the entry station' do
       expect(card.entry_station).to eq 'Aldgate East'
     end
 
-    it 'expects the touch out method to make entry_station nil' do
-      card.touch_out
-      expect(card.entry_station).to eq nil
+    it 'expects touch out to record journey history' do
+      card.touch_out('Liverpool Street')
+      expect(card.journey_history).to eq ([{'Aldgate East' => 'Liverpool Street'}])
+    end
+
+  end
+
+  describe 'Journey log' do
+
+    it 'expects journey history to have an empty array' do
+      expect(card.journey_history).to be_empty
     end
   end
 end
