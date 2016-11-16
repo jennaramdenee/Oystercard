@@ -20,4 +20,7 @@ class Journey
     self.in_journey
   end
 
+  def fare
+    
+
 end
