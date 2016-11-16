@@ -23,7 +23,7 @@ describe OysterCard do
 
       it 'should raise error when touching in with less than minimum balance' do
       	message = "Insufficient funds, minimum fare is £#{OysterCard::MINIMUM_FARE}"
-      	expect {card.touch_in}.to raise_error message
+      	expect {card.touch_in('Aldgate')}.to raise_error message
       end
 
     end
@@ -34,7 +34,7 @@ describe OysterCard do
 
     before(:each) do
       card.top_up(10)
-      card.touch_in
+      card.touch_in('Aldgate East')
     end
 
     it 'should return true if touched in' do
@@ -59,5 +59,13 @@ describe OysterCard do
       expect{card.touch_out}.to change{card.balance}.by(-OysterCard::MINIMUM_FARE)
     end
 
+    it 'expects the touch in method to remember the entry station' do
+      expect(card.entry_station).to eq 'Aldgate East'
+    end
+
+    it 'expects the touch out method to make entry_station nil' do
+      card.touch_out
+      expect(card.entry_station).to eq nil
+    end
   end
 end
