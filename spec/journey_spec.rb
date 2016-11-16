@@ -63,6 +63,18 @@ describe Journey do
       expect(journey.journey_history).to eq ([{entry_station => exit_station}])
     end
 
+    it 'clears entry station before the start of a new journey' do
+      journey.entry_station = "Paddington"
+      journey.clear_history
+      expect(journey.entry_station).to be nil
+    end
+
+    it 'clears exit station once a new journey has started' do
+      journey.start_journey(entry_station)
+      journey.finish_journey(exit_station)
+      expect{journey.start_journey(entry_station)}.to change{journey.exit_station}.from(exit_station).to(nil)
+    end
+
   end
 
 end

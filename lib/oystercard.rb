@@ -37,11 +37,6 @@ class OysterCard
     Journey.new
   end
 
-  def clear_history
-    self.entry_station = nil
-    self.exit_station = nil
-  end
-
   def deduct(amount)
     @balance -= amount
   end

@@ -14,6 +14,7 @@ class Journey
   end
 
   def start_journey(entry_station)
+    clear_history
     @entry_station = entry_station
     self.in_journey = true
   end
@@ -21,6 +22,7 @@ class Journey
   def finish_journey(exit_station)
     @exit_station = exit_station
     self.in_journey = false
+    fare
     add_to_journey_history
   end
 
@@ -35,6 +37,11 @@ class Journey
 
   def add_to_journey_history
     self.journey_history << {self.entry_station => self.exit_station}
+  end
+
+  def clear_history
+    self.entry_station = nil
+    self.exit_station = nil
   end
 
 end
