@@ -62,21 +62,6 @@ describe OysterCard do
       expect{card.touch_out(exit_station)}.to change{card.balance}.by(-OysterCard::MINIMUM_FARE)
     end
 
-    it 'expects the touch in method to remember the entry station' do
-      expect(card.entry_station).to eq entry_station
-    end
-
-    it 'expects touch out to record journey history' do
-      card.touch_out(exit_station)
-      expect(card.journey_history).to eq ([{entry_station => exit_station}])
-    end
-
   end
 
-  describe 'Journey log' do
-
-    it 'expects journey history to have an empty array' do
-      expect(card.journey_history).to be_empty
-    end
-  end
 end

@@ -11,7 +11,7 @@ describe Journey do
     expect(journey.in_journey).to eq true
   end
 
-  it 'expects in journey to be false finish_journey is called' do
+  it 'expects in journey to be false when finish_journey is called' do
     journey.finish_journey(exit_station)
     expect(journey.in_journey).to eq false
   end
@@ -47,6 +47,20 @@ describe Journey do
       journey.start_journey(entry_station)
       journey.finish_journey(exit_station)
       expect(journey.fare).to eq (Journey::MINIMUM_FARE)
+    end
+
+  end
+
+  describe 'Journey log' do
+
+    it 'expects journey history to have an empty array' do
+      expect(journey.journey_history).to be_empty
+    end
+
+    it 'expects touch out to record journey history' do
+      journey.start_journey(entry_station)
+      journey.finish_journey(exit_station)
+      expect(journey.journey_history).to eq ([{entry_station => exit_station}])
     end
 
   end
