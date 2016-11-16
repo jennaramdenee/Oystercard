@@ -18,4 +18,9 @@ describe Journey do
     expect(journey.in_journey?).to be false
   end
 
+  it "expects fare to equal #{Journey::PENALTY_FARE} when not touched out" do
+    journey.start_journey
+    expect(journey.fare).to eq (Journey::PENALTY_FARE)
+  end
+
 end

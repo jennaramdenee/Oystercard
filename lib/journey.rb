@@ -2,6 +2,8 @@ class Journey
 
   attr_accessor :in_journey
 
+  PENALTY_FARE = 6
+
   def initialize
     @in_journey = false
   end
