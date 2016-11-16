@@ -32,9 +32,12 @@ describe OysterCard do
 
   describe 'Touch functionality' do
 
+    let(:entry_station) {double(:station)}
+    let(:exit_station) {double(:station)}
+
     before(:each) do
       card.top_up(10)
-      card.touch_in('Aldgate East')
+      card.touch_in(entry_station)
     end
 
     it 'should return true if touched in' do
@@ -42,7 +45,7 @@ describe OysterCard do
     end
 
     it 'should return false if touched out' do
-      card.touch_out('Liverpool Street')
+      card.touch_out(exit_station)
       expect(card.in_journey?).to eq false
     end
 
@@ -51,21 +54,21 @@ describe OysterCard do
     end
 
     it 'should return false if touched out' do
-      card.touch_out('Liverpool Street')
+      card.touch_out(exit_station)
       expect(card).not_to be_in_journey
     end
 
     it 'expects touch out to deduct minimum fare from balance' do
-      expect{card.touch_out('Liverpool Street')}.to change{card.balance}.by(-OysterCard::MINIMUM_FARE)
+      expect{card.touch_out(exit_station)}.to change{card.balance}.by(-OysterCard::MINIMUM_FARE)
     end
 
     it 'expects the touch in method to remember the entry station' do
-      expect(card.entry_station).to eq 'Aldgate East'
+      expect(card.entry_station).to eq entry_station
     end
 
     it 'expects touch out to record journey history' do
-      card.touch_out('Liverpool Street')
-      expect(card.journey_history).to eq ([{'Aldgate East' => 'Liverpool Street'}])
+      card.touch_out(exit_station)
+      expect(card.journey_history).to eq ([{entry_station => exit_station}])
     end
 
   end
