@@ -26,7 +26,7 @@ class OysterCard
   def touch_in(entry_station)
   	raise "Insufficient funds" if minimum?
     @journey = create_new_journey
-    self.journey.start_journey
+    self.journey.start_journey(entry_station)
     @entry_station = entry_station
   end
 

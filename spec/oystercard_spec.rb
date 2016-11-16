@@ -22,7 +22,7 @@ describe OysterCard do
       end
 
       it 'should raise error when touching in with less than minimum balance' do
-      	message = "Insufficient funds, minimum fare is £#{OysterCard::MINIMUM_FARE}"
+      	message = "Insufficient funds"
       	expect {card.touch_in('Aldgate')}.to raise_error message
       end
 
