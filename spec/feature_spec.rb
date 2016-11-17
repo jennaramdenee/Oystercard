@@ -74,7 +74,7 @@ describe "User Stories" do
   # In order to know where I have been
   # As a customer
   # I want to see to all my previous trips
-  it 'stores a journey history on the card' do
+  xit 'stores a journey history on the card' do
     card = Oystercard.new
     card.top_up(2)
     card.touch_in("Aldgate")

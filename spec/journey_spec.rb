@@ -6,8 +6,6 @@ describe Journey do
 	let(:entry_station) { double(:entry_station) }
 	let(:exit_station) { double(:exit_station) }
 
-	it { is_expected.to respond_to(:store_journey) }
-
 	it { is_expected.to respond_to(:start_journey) }
 
 	it 'is expected to start a journey' do
@@ -19,12 +17,6 @@ describe Journey do
 		journey.end_journey(exit_station)
   		expect(journey.exit_station).to eq exit_station
 	end
-
-    it 'expects to complete a journey' do
-    	journey.start_journey(entry_station)
-    	journey.end_journey(exit_station)
-    	expect(journey.complete_journey).to eq ({ :journey_start => entry_station, :journey_end => exit_station })
-    end
 
     it { is_expected.to respond_to(:fare) }
 

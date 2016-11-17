@@ -16,15 +16,6 @@ class Journey
 
 	def end_journey(exit_station)
 		@exit_station = exit_station
-		complete_journey
-	end
-
-	def complete_journey
-		{ :journey_start => @entry_station, :journey_end => @exit_station }
-	end
-
-	def store_journey(card)
-		card.journey_history << complete_journey
 	end
 
 	def in_journey?
