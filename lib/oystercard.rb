@@ -24,7 +24,7 @@ def touch_in(entry_station)
     fail("You do not have sufficient funds. Please top up your card.")
   else
     record_entry(entry_station)
-    @journey = Journey.new(entry_station)
+    @journey = Journey.new
   end
 end
 
