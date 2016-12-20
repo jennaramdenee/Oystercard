@@ -2,7 +2,7 @@ require_relative "journey.rb"
 
 class Oystercard
 
-attr_reader :balance, :entry_station, :journey_history
+attr_reader :balance, :entry_station, :journey_history, :journey
 
 MAXIMUM_BALANCE = 90
 MINIMUM_BALANCE = 1
@@ -10,7 +10,7 @@ MINIMUM_BALANCE = 1
 def initialize
   @balance = 0
   @entry_station
-  @journey_history = Hash.new
+  @journey = Journey.new
   @journey_counter = 1
 end
 
@@ -23,24 +23,15 @@ def touch_in(entry_station)
   if @balance < MINIMUM_BALANCE
     fail("You do not have sufficient funds. Please top up your card.")
   else
-    record_entry(entry_station)
-    @journey = Journey.new
+    @journey.start(entry_station)
   end
 end
 
-def touch_out(station)
-  record_exit(station)
+def touch_out(exit_station)
+  @journey.finish(exit_station)
   deduct
 end
 
-def record_entry(station)
-  @journey_history["journey_#{@journey_counter}"] = { "entry" => station}
-end
-
-def record_exit(station)
-  @journey_history["journey_#{@journey_counter}"].merge!({ "exit" => station})
-  @journey_counter += 1
-end
 
 private
 
