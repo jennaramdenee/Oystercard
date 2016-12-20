@@ -1,4 +1,4 @@
-class JourneyLog
+class fareCalculator
 
   attr_reader :journey_history
 

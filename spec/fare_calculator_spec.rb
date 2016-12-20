@@ -1,4 +1,4 @@
-require 'journeylog.rb'
+require 'fareCalculator.rb'
 
 describe JourneyLog do
 
