@@ -9,9 +9,7 @@ MINIMUM_BALANCE = 1
 
 def initialize
   @balance = 0
-  @entry_station
   @journey = Journey.new
-  @journey_counter = 1
 end
 
 def top_up(amount)
