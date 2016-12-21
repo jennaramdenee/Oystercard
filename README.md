@@ -116,3 +116,7 @@ I need to have the correct fare calculated
   [{:entry_station=>#<Station:0x007f9b50a409a0 @name="Bank", @zone=1>, :exit_station=>#<Station:0x007f9b509701b0 @name="Hammersmith", @zone=4>},
    {:exit_station=>#<Station:0x007f9b508e9e30 @name="Ruislip", @zone=6>, :entry_station=>"No touch in"}],
 ```
+
+### Outstanding Features
+
+The program currently does not support an incomplete journey when a user touches in twice, as journey is assessed for "completeness" only on touch out. Potential to implement a timeout feature to catch this edge case.
