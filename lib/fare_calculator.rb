@@ -1,13 +1,14 @@
-class fareCalculator
+class FareCalculator
 
   attr_reader :journey_history
 
-    MINIMUM_FARE = 1
     PENALTY_FARE = 6
 
-  def fare
-    return PENALTY_FARE if completed? == false
-    MINIMUM_FARE
+  def fare(entry_station, exit_station)
+    return PENALTY_FARE if entry_station == "No touch in" || exit_station == "No touch out"
+    return (exit_station.zone - entry_station.zone).abs + 1
   end
+
+
 
 end

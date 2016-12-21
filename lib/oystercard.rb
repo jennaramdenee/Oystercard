@@ -27,14 +27,12 @@ end
 
 def touch_out(exit_station)
   @journey.finish(exit_station)
-  deduct
+  deduct(@journey.new_fare)
 end
 
 
-private
-
-def deduct
-  @balance -= MINIMUM_BALANCE
+def deduct(fare)
+  @balance -= fare
 end
 
 

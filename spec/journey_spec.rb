@@ -6,6 +6,10 @@ describe Journey do
   let(:entry_station) { double(:entry_station) }
   let(:exit_station) { double(:exit_station) }
 
+  before do
+    allow_any_instance_of(FareCalculator).to receive(:fare)
+  end
+
   context "Initializing" do
     it "should initialize an empty single journey" do
       expect(journey.single_journey).to eq({})
@@ -22,24 +26,22 @@ describe Journey do
     end
   end
 
-  context "Finish Journey" do
-    it "should log exit station as part of single journey" do
-      journey.finish(exit_station)
-      expect(journey.single_journey[:exit_station]).to eq exit_station
-    end
-  end
+  # context "Finish Journey" do
+  #   it "should log exit station as part of single journey" do
+  #     journey.finish(exit_station)
+  #     expect(journey.single_journey[:exit_station]).to eq exit_station
+  #   end
+  # end
 
   context "Adding journeys to journey history" do
     it "should add a journey to the journey history" do
       journey.start(entry_station)
       journey.finish(exit_station)
-      journey.add_to_history
       expect(journey.journey_history).to eq [{:entry_station => entry_station, :exit_station => exit_station}]
     end
     it "should clear single journey hash" do
       journey.start(entry_station)
       journey.finish(exit_station)
-      journey.add_to_history
       expect(journey.single_journey).to eq ({})
     end
     it "can add multiple journeys to history" do
@@ -47,7 +49,6 @@ describe Journey do
       journey.finish(exit_station)
       journey.start(entry_station)
       journey.finish(exit_station)
-      journey.add_to_history
       expect(journey.journey_history).to eq ([{:entry_station => entry_station, :exit_station => exit_station}, {:entry_station => entry_station, :exit_station => exit_station}])
     end
   end
@@ -100,11 +101,10 @@ describe Journey do
       journey.start(entry_station)
       expect(journey.journey_history).to eq ([])
     end
-    it "only adds to history once the next journey has started" do
+    it "only adds to history once the journey is over" do
       journey.start(entry_station)
-      journey.finish(exit_station)
       expect(journey.journey_history).to eq ([])
     end
-
   end
+
 end
