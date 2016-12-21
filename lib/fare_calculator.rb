@@ -1,3 +1,5 @@
+require './lib/station.rb'
+
 class FareCalculator
 
   attr_reader :journey_history
